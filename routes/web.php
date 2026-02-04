@@ -17,10 +17,11 @@ Route::post('/send-number', function (Request $request) {
     Mail::raw(
         "She said YES ❤️\nMobile Number: " . $request->phone,
         function ($message) {
-            $message->to('letsgivechance@gmail.com')
+            $message->to('pkrunak28@gmail.com')
                     ->subject('Valentine Response');
         }
     );
 
     return response()->json(['ok' => true]);
 });
+ 
