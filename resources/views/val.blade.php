@@ -1,144 +1,138 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>Valentine</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Valentine</title>
 
-<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
 
-<style>
-:root {
-  --pink:#ff3b7a;
-  --bg:#ffeef6;
-}
+  <style>
+    :root {
+      --pink: #ff3b7a;
+      --bg: #ffeef6;
+    }
 
-* {
-  box-sizing:border-box;
-  -webkit-tap-highlight-color:transparent;
-}
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
 
-body {
-  margin:0;
-  min-height:100svh;
-  display:grid;
-  place-items:center;
-  background:var(--bg);
-  font-family:system-ui,-apple-system;
-  padding:env(safe-area-inset-top)
-          env(safe-area-inset-right)
-          env(safe-area-inset-bottom)
-          env(safe-area-inset-left);
-}
+    body {
+      margin: 0;
+      min-height: 100svh;
+      display: grid;
+      place-items: center;
+      background: var(--bg);
+      font-family: system-ui, -apple-system;
+    }
 
-/* Fullscreen canvas */
-canvas {
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  z-index:0;
-}
+    canvas {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
 
-.card {
-  width:92vw;
-  max-width:360px;
-  background:#fff;
-  border-radius:22px;
-  padding:26px 20px;
-  text-align:center;
-  box-shadow:0 18px 40px rgba(0,0,0,.15);
-  position:relative;
-  z-index:2;
-}
+    .card {
+      width: 92vw;
+      max-width: 360px;
+      background: #fff;
+      border-radius: 22px;
+      padding: 26px 20px;
+      text-align: center;
+      box-shadow: 0 18px 40px rgba(0,0,0,.15);
+      position: relative;
+      z-index: 2;
+    }
 
-/* Heart logo */
-.logo-heart {
-  font-size:56px;
-  margin-bottom:10px;
-  animation:pulse 1.2s infinite alternate;
-}
+    .logo-heart {
+      font-size: 56px;
+      margin-bottom: 10px;
+      animation: pulse 1.2s infinite alternate;
+    }
 
-@keyframes pulse {
-  from { transform:scale(1); }
-  to   { transform:scale(1.15); }
-}
+    @keyframes pulse {
+      from { transform: scale(1); }
+      to { transform: scale(1.15); }
+    }
 
-h2 {
-  font-size:22px;
-  line-height:1.35;
-  margin-bottom:20px;
-}
+    h2 {
+      font-size: 22px;
+      margin-bottom: 20px;
+    }
 
-.zone {
-  position:relative;
-  height:180px;
-}
+    .zone {
+      position: relative;
+      height: 180px;
+    }
 
-button {
-  padding:14px 26px;
-  font-size:17px;
-  border-radius:999px;
-  border:none;
-  font-weight:600;
-  cursor:pointer;
-}
+    button {
+      padding: 14px 26px;
+      font-size: 17px;
+      border-radius: 999px;
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+    }
 
-#yes {
-  background:var(--pink);
-  color:#fff;
-}
+    #yes {
+      background: var(--pink);
+      color: #fff;
+    }
 
-#no {
-  position:absolute;
-  background:#e5e7eb;
-  left:55%;
-  top:60%;
-  transform:translate(-50%,-50%);
-}
+    #no {
+      position: absolute;
+      background: #e5e7eb;
+      left: 55%;
+      top: 60%;
+      transform: translate(-50%, -50%);
+    }
 
-#afterYes {
-  display:none;
-  margin-top:10px;
-}
+    #afterYes,
+    #final {
+      display: none;
+    }
 
-.message {
-  font-size:18px;
-  margin-bottom:14px;
-}
+    .message {
+      font-size: 18px;
+      margin-bottom: 14px;
+    }
 
-input {
-  width:100%;
-  padding:14px;
-  font-size:16px;
-  border-radius:12px;
-  border:1px solid #ddd;
-}
+    textarea,
+    input[type="tel"] {
+      width: 100%;
+      padding: 14px;
+      font-size: 16px;
+      border-radius: 12px;
+      border: 1px solid #ddd;
+      outline: none;
+    }
 
-.send {
-  margin-top:12px;
-  background:var(--pink);
-  color:#fff;
-  width:100%;
-}
+    textarea {
+      resize: none;
+    }
 
-#final {
-  display:none;
-}
+    .send {
+      margin-top: 14px;
+      background: var(--pink);
+      color: #fff;
+      width: 100%;
+    }
 
-.big-heart {
-  font-size:90px;
-  animation:pulse 1s infinite alternate;
-}
-</style>
+    .big-heart {
+      font-size: 90px;
+      animation: pulse 1s infinite alternate;
+    }
+  </style>
 </head>
 
 <body>
 
 <canvas id="confetti"></canvas>
 
-<div class="card" id="card">
+<div class="card">
 
-  <!-- Heart logo -->
   <div class="logo-heart">❤️</div>
 
   <h2>Jinal, will you be my Valentine?</h2>
@@ -150,89 +144,105 @@ input {
 
   <div id="afterYes">
     <p class="message">
-      That yes just raised my expectations…<br>
-      and trust me, I deliver ❤️
+      I always wanted to say this but couldn’t.
+      I was scared I might lose you.
+      I don’t know where this leads, but I really like you ❤️
     </p>
 
-    <input id="phone" type="tel" maxlength="10" placeholder="Drop your mobile number 📱">
-    <button class="send" onclick="sendNumber()">Send</button>
+    <textarea id="message" rows="5"
+      placeholder="Please write here whatever you feel 🌸"></textarea>
+
+    <input type="tel" id="phone"
+      placeholder="Your mobile number 📞"
+      maxlength="10"
+      inputmode="numeric"
+      style="margin-top:12px" />
+
+    <button class="send" onclick="sendMessage()">Lets Give a Chance</button>
   </div>
 
   <div id="final">
     <div class="big-heart">❤️</div>
     <p style="font-size:20px;margin-top:10px;">
-      I’ll call you soon 😊
+       See You Soon😊
     </p>
   </div>
 
 </div>
 
 <script>
-const noBtn = document.getElementById("no");
-const yesBtn = document.getElementById("yes");
-const zone = document.getElementById("zone");
-const afterYes = document.getElementById("afterYes");
-const final = document.getElementById("final");
-const canvas = document.getElementById("confetti");
+  const noBtn = document.getElementById("no");
+  const yesBtn = document.getElementById("yes");
+  const zone = document.getElementById("zone");
+  const afterYes = document.getElementById("afterYes");
+  const final = document.getElementById("final");
+  const canvas = document.getElementById("confetti");
 
-const confettiInstance = confetti.create(canvas, {
-  resize:true,
-  useWorker:true
-});
-
-// No button mobile-safe movement
-noBtn.addEventListener("touchstart", e => {
-  e.preventDefault();
-  const z = zone.getBoundingClientRect();
-  const b = noBtn.getBoundingClientRect();
-  noBtn.style.left = Math.random()*(z.width-b.width) + "px";
-  noBtn.style.top  = Math.random()*(z.height-b.height) + "px";
-});
-
-// Yes click
-yesBtn.onclick = () => {
-  zone.style.display = "none";
-  afterYes.style.display = "block";
-};
-
-// Submit + FULL SCREEN blast
-function sendNumber() {
-  const phone = document.getElementById("phone").value;
-
-  fetch("/send-number", {
-    method:"POST",
-    headers:{
-      "Content-Type":"application/json",
-      "X-CSRF-TOKEN":"{{ csrf_token() }}"
-    },
-    body:JSON.stringify({ phone })
+  const confettiInstance = confetti.create(canvas, {
+    resize: true,
+    useWorker: true
   });
 
-  afterYes.style.display = "none";
-  final.style.display = "block";
+  function moveNoButton() {
+    const z = zone.getBoundingClientRect();
+    const b = noBtn.getBoundingClientRect();
+    noBtn.style.left = Math.random() * (z.width - b.width) + "px";
+    noBtn.style.top = Math.random() * (z.height - b.height) + "px";
+  }
 
-  fullScreenHearts();
-}
+  noBtn.addEventListener("mouseenter", moveNoButton);
+  noBtn.addEventListener("touchstart", e => {
+    e.preventDefault();
+    moveNoButton();
+  });
 
-function fullScreenHearts() {
-  const end = Date.now() + 2500;
+  yesBtn.onclick = () => {
+    zone.style.display = "none";
+    afterYes.style.display = "block";
+  };
 
-  (function frame() {
-    confettiInstance({
-      particleCount: 18,
-      spread: 360,
-      startVelocity: 40,
-      scalar: 1.4,
-      shapes: ['circle'],
-      colors: ['#ff3b7a','#ff7aa2','#ffd6e7','#ffffff'],
-      origin: {
-        x: Math.random(),
-        y: Math.random()
-      }
+  function sendMessage() {
+    const message = document.getElementById("message").value.trim();
+    const phone = document.getElementById("phone").value.trim();
+
+    if (!message) {
+      alert("Please write something 💬");
+      return;
+    }
+
+    if (!/^\d{10}$/.test(phone)) {
+      alert("Please enter a valid 10-digit mobile number 📞");
+      return;
+    }
+
+    fetch("/send-number", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRF-TOKEN": "{{ csrf_token() }}"
+      },
+      body: JSON.stringify({ message, phone })
     });
-    if (Date.now() < end) requestAnimationFrame(frame);
-  })();
-}
+
+    afterYes.style.display = "none";
+    final.style.display = "block";
+    fullScreenHearts();
+  }
+
+  function fullScreenHearts() {
+    const end = Date.now() + 2500;
+    (function frame() {
+      confettiInstance({
+        particleCount: 18,
+        spread: 360,
+        startVelocity: 40,
+        scalar: 1.4,
+        colors: ['#ff3b7a', '#ff7aa2', '#ffd6e7', '#ffffff'],
+        origin: { x: Math.random(), y: Math.random() }
+      });
+      if (Date.now() < end) requestAnimationFrame(frame);
+    })();
+  }
 </script>
 
 </body>

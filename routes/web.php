@@ -5,23 +5,23 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('val'); // 👈 matches val.blade.php
+    return view('val');
 });
 
 Route::post('/send-number', function (Request $request) {
 
     $request->validate([
-        'phone' => 'required|digits:10'
+        'message' => 'required|string',
+        'phone'   => 'required|digits:10'
     ]);
 
     Mail::raw(
-        "She said YES ❤️\nMobile Number: " . $request->phone,
-        function ($message) {
-            $message->to('pkrunak28@gmail.com')
-                    ->subject('Valentine Response');
+        "She said YES ❤️\n\nMessage:\n{$request->message}\n\nPhone: {$request->phone}",
+        function ($mail) {
+            $mail->to('pkrunak28@gmail.com')
+                 ->subject('Valentine Response 💖');
         }
     );
 
     return response()->json(['ok' => true]);
 });
- 
