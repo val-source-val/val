@@ -18,7 +18,7 @@ Route::post('/send-number', function (Request $request) {
     $response = Http::withToken(env('RESEND_API_KEY'))
         ->post('https://api.resend.com/emails', [
             'from' => 'Valentine <onboarding@resend.dev>',
-            'to' => ['pkrunak28@gmail.com'],
+            'to' => ['letsgivechance@gmail.com'],
             'subject' => 'Valentine Response 💖',
             'html' => "
                 <h2>She said YES ❤️</h2>
