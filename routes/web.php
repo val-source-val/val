@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
+use Resend\Resend;
 
 Route::get('/', function () {
     return view('val');
@@ -15,13 +15,18 @@ Route::post('/send-number', function (Request $request) {
         'phone'   => 'required|digits:10'
     ]);
 
-    Mail::raw(
-        "She said YES ❤️\n\nMessage:\n{$request->message}\n\nPhone: {$request->phone}",
-        function ($mail) {
-            $mail->to('pkrunak28@gmail.com')
-                 ->subject('Valentine Response 💖');
-        }
-    );
+    $resend = Resend::client(env('RESEND_API_KEY'));
+
+    $resend->emails->send([
+        'from' => 'Valentine <onboarding@resend.dev>',
+        'to' => ['pkrunak28@gmail.com'],
+        'subject' => 'Valentine Response 💖',
+        'html' => "
+            <h2>She said YES ❤️</h2>
+            <p><strong>Message:</strong><br>{$request->message}</p>
+            <p><strong>Phone:</strong> {$request->phone}</p>
+        ",
+    ]);
 
     return response()->json(['ok' => true]);
 });
