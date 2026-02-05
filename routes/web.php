@@ -19,9 +19,17 @@ Route::post('/send-number', function (Request $request) {
         "She said YES ❤️\n\nMessage:\n{$request->message}\n\nPhone: {$request->phone}",
         function ($mail) {
             $mail->to('pkrunak28@gmail.com')
-                 ->subject('Valentine Response 💖');
+                ->subject('Valentine Response 💖');
         }
     );
 
     return response()->json(['ok' => true]);
+});
+Route::get('/mail-test', function () {
+    Mail::raw('Test email from Railway', function ($mail) {
+        $mail->to('pkrunak28@gmail.com')
+            ->subject('Railway Mail Test');
+    });
+
+    return 'Mail sent';
 });
