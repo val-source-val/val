@@ -26,10 +26,14 @@ Route::post('/send-number', function (Request $request) {
     return response()->json(['ok' => true]);
 });
 Route::get('/mail-test', function () {
-    Mail::raw('Test email from Railway', function ($mail) {
-        $mail->to('pkrunak28@gmail.com')
-            ->subject('Railway Mail Test');
-    });
+    try {
+        Mail::raw('Test email from Railway', function ($mail) {
+            $mail->to('pkrunak28@gmail.com')
+                ->subject('Railway Mail Test');
+        });
 
-    return 'Mail sent';
+        return 'Mail sent';
+    } catch (\Throwable $e) {
+        return response($e->getMessage(), 500);
+    }
 });
